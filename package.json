@@ -1,0 +1,22 @@
+{
+  "name": "fancytodo-client",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laurentiusedrick/fancytodo-client.git"
+  },
+  "author": "laurentiusedrick",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/laurentiusedrick/fancytodo-client/issues"
+  },
+  "homepage": "https://github.com/laurentiusedrick/fancytodo-client#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.1"
+  }
+}
