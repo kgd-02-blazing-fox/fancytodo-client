@@ -34,10 +34,14 @@
         <li class="nav-item" id="loginNav">
           <a class="nav-link" href="#" id="navLogin">Login</a>
         </li>
+        <li class="nav-item" id="logoutNav">
+          <a class="nav-link" href="#" id="navLogout">Logout</a>
+        </li>
       </ul>
     </div>
   </nav>
 
+  <!-- MAIN BODY -->
   <main role="main" class="container">
     <!-- HOME -->
     <div class="home" id="home">
@@ -54,12 +58,12 @@
       <form class="form-login">
         <h1 class="h3 mb-3 font-weight-normal">Please login</h1>
         <label for="email" class="sr-only">Email address</label>
-        <input type="email" id="email" class="form-control" placeholder="Email address">
+        <input type="email" id="emailLogin" class="form-control" placeholder="Email address" required>
         <br>
         <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Password">
+        <input type="password" id="passwordLogin" class="form-control" placeholder="Password" required>
         <hr>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
       </form>
       <hr>
     </div>
@@ -69,14 +73,14 @@
     <div class="register" id="registerForm">
       <form class="form-register">
         <h1 class="h3 mb-3 font-weight-normal">Register</h1>
-        <label for="name" class="sr-only">Name</label>
-        <input type="text" id="name" class="form-control" placeholder="Your name">
+        <label for="nameRegister" class="sr-only">Name</label>
+        <input type="text" id="nameRegister" class="form-control" placeholder="Your name" required>
         <br>
-        <label for="email" class="sr-only">Email address</label>
-        <input type="email" id="email" class="form-control" placeholder="Email address">
+        <label for="emailRegister" class="sr-only">Email address</label>
+        <input type="email" id="emailRegister" class="form-control" placeholder="Email address" required>
         <br>
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" id="password" class="form-control" placeholder="Password">
+        <label for="passwordRegister" class="sr-only">Password</label>
+        <input type="password" id="passwordRegister" class="form-control" placeholder="Password" required>
         <hr>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
       </form>
@@ -85,22 +89,42 @@
     <!-- TODOS -->
     <br>
     <div class="todos" id="todosForm">
-      <table id="todo-table" class="table">
+      <h2>Welcome to your Fancy-TODO</h2>
+      <button id="addTodoButton">Add Todo</button><br><br>
+      <div>
+      <table class="table" id="todoList">
         <tr>
           <th>Title</th>
           <th>Description</th>
+          <th>Status</th>
           <th>Due Date</th>
           <th>Advice</th>
           <th>Action</th>
         </tr>
-        <tr>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-          <td>test</td>
-          <td><button>Edit</button><button>Delete</button></td>
-        </tr>
-      </table>
+        </table>
+      </div>
+    </div>
+
+    <!-- ADD TODO -->
+    <br>
+    <div class="add" id="addTodoForm">
+      <button id="cancelAddTodoButton">Cancel</button><br><br>
+      <form class="form-addTodo">
+        <h1 class="h3 mb-3 font-weight-normal">Add New Todo</h1>
+        <label for="titleAddTodo" class="sr-only">Title</label>
+        <input type="text" id="titleAddTodo" class="form-control" placeholder="Your Todo" required>
+        <br>
+        <label for="descriptionAddTodo" class="sr-only">Description</label>
+        <input type="text" id="descriptionAddTodo" class="form-control" placeholder="Describe more" required>
+        <br>
+        <label for="statusAddTodo" class="sr-only">Status</label>
+        <input type="text" id="statusAddTodo" class="form-control" placeholder="Status" required>
+        <br>
+        <label for="duedateAddTodo" class="sr-only">Due Date</label>
+        <input type="date" id="duedateAddTodo" class="form-control" placeholder="Due Date" required>
+        <hr>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Save Todo</button>
+      </form>
     </div>
 
   </main><!-- /.container -->
