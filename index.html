@@ -17,8 +17,6 @@
 
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
-
-  
 </head>
 
 <body>
@@ -61,10 +59,9 @@
             <h5>Login</h5>
             <p style="color:#333;">Welcome back to fancy todos</p>
 
-            <div class="mybtn2">
-              <img style="margin-right: 10px;" src="https://img.icons8.com/color/28/000000/google-logo.png" /> <a href="">Login With Google</a>
-            </div>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
           </div>
+
           <div class="row">
             <p class="center-align" style="margin-bottom: 0px;">OR</p>
             <div class="input-field col s12">
@@ -128,167 +125,142 @@
     </div>
   </div>
 
-  <div id="resto" class="resto">
+  <div id="resto">
     <div class="container">
       <div class="header center-align">
-        <h3>Resto Page</h3>
-        <p>Kunjungi Resto Disekitar Anda!</p>
         <div class="row">
-          <ul>
-            <li><a href="">Bandung</a></li>
-            <li><a href="">Jakarta</a></li>
-          </ul>
+          <div class="col s7">
+            <h1 style="font-family: 'Kaushan Script', cursive;">Add to your todo!</h1>
+          </div>
+          <div class="col s5">
+            <p>Kunjungi Resto Disekitar Anda!</p>
+            <div class="row">
+              <a id="btnFetchRestoBandung" href="" class="waves-effect waves-light btn">Bandung</a>
+              <p style="display:inline-block; margin-left: 15px; margin-right: 15px;">OR</p>
+              <a id="btnFetchRestoJakarta" href="" class="waves-effect waves-light btn">Jakarta</a>
+            </div>
+          </div>
         </div>
+        
+        
       </div>
-      <div class="row">
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col s6 m3">
-          <div class="card">
-            <div class="card-image">
-              <img src="https://foodin.id/wp-content/uploads/2020/04/Peluang-Usaha-Caf%C3%A9-dan-Resto.jpg">
-              <span class="card-title">Card Title</span>
-              <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
-            </div>
-            <div class="card-content">
-              <p>I am a very simple card. I am good at containing small bits of information. I am convenient because I require
-                little markup to use effectively.</p>
-            </div>
-          </div>
-        </div>
-
-
+      <div id="list-resto" class="row">
       </div>
     </div>
   </div>
 
   <div id="todos">
+    <div class="container center-align">
+      <h5>Your todo list</h5>
+      <a id="btnGoToAddTodo" class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add todo</a>
+      <table style="margin: 20px;">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Title</th>
+            <th>Due date</th>
+          </tr>
+        </thead>
+        <tbody id="list-todo">
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col">
+          <a href=""><i style="color: yellow;" class="material-icons left">do_not_disturb_on</i>None</a>
+        </div>
+        <div class="col">
+          <a href=""><i style="color: green;" class="material-icons left">beenhere</i>Done</a>
+        </div>
+        <div class="col">
+          <a href=""><i style="color: red;" class="material-icons left">assignment_late</i>Expire</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="todo-add">
     <div class="container">
-      <h5>Todos Page</h5>
+      <h5>You can create todo here!</h5>
+      <div class="row">
+        <div class="col s6">
+          <form id="form-add-todo">
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="todo-title" type="text" class="validate">
+                <label for="todo-title">Todo Title</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input id="todo-description" type="text" class="validate">
+                <label for="todo-description">Description</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input id="todo-date" type="text" class="datepicker">
+                <label for="todo-date">Due date</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input disabled value="none" id="todo-status" type="text">
+                <label for="todo-status">Status</label>
+              </div>
+
+            </div>
+            <button type="submit" class="mybtn">Add Todo</button>
+          </form>
+          <br>
+          <a id="btnCancel" type="submit" class="mybtn2">Cancel</a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="todo-update">
+    <div class="container">
+      <h5>Detail todo</h5>
+      <div class="row">
+        <div class="col s6">
+          <form id="form-update-todo">
+            <div class="row">
+              <div class="col s12">
+                <input id="update-todo-id" type="text" hidden>
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input value="None" id="update-todo-title" type="text" class="validate">
+                <label for="update-todo-title">Todo Title</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input value="None" id="update-todo-description" type="text" class="validate">
+                <label for="update-todo-description">Description</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input value="None" id="update-todo-status" type="text">
+                <label for="update-todo-status">Status</label>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="input-field col s12">
+                <input value="None" id="update-todo-date" type="text" class="datepicker">
+                <label for="update-todo-date">Due date</label>
+            
+              </div>
+            </div>
+            <button type="submit" class="mybtn">Update Todo</button>
+          </form>
+          <br>
+          <a id="btnDelete" type="submit" class="mybtn2">Delete</a>
+
+        </div>
+      </div>
     </div>
   </div>
 
@@ -304,3 +276,17 @@
 </body>
 
 </html>
+
+
+<!-- <li class="collection-item">
+  <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">assignment_turned_in</i></a></div>
+</li>
+<li class="collection-item">
+  <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">assignment_turned_in</i></a></div>
+</li>
+<li class="collection-item">
+  <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">assignment_turned_in</i></a></div>
+</li>
+<li class="collection-item">
+  <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">assignment_turned_in</i></a></div>
+</li> -->

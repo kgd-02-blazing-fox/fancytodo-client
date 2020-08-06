@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Patrick+Hand&display=swap');
+/* body{
+  background-color: rgb(255, 191, 231);
+} */
 a {
   color: black;
 }
@@ -5,10 +9,11 @@ a {
 button {
   display: inline-block;
   width: 100%;
+  border:0;
 }
 
 .mybtn {
-  background-color: blue;
+  background-color:thistle;
   color: white;
   padding: 10px 20px; 
   border-radius: 5px; 
@@ -18,7 +23,7 @@ button {
   cursor: pointer;
 }
 .mybtn:hover {
-  background-color: rgb(11, 11, 175);
+  background-color: tomato;
 }
 .mybtn2 {
   border: 2px solid rgb(255, 255, 255); 
@@ -43,4 +48,15 @@ button {
   display: flex; 
   align-items: center; 
   justify-content: center;
+}
+
+.pDetailResto{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 5px;
+
+}
+.pDetailResto i {
+  margin-right: 5px;
 }
