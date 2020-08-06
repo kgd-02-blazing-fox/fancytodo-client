@@ -1,7 +1,8 @@
+
 function home() {
-  if (localStorage.getItem('access_token')) {
-    showTodo()
-  } else {
+  // if (localStorage.getItem('access_token')) {
+  //   showTodo()
+  // } else {
     localStorage.removeItem('access_token')
     $('#home').slideDown("slow", function () { })
     $('#loginForm').hide()
@@ -10,7 +11,7 @@ function home() {
     $('#navShowTodo').hide()
     $('#logoutNav').hide()
     $('#addTodoForm').hide()
-  }
+  // }
 }
 
 function showLogin() {
@@ -136,7 +137,8 @@ function register(event) {
 
 function logout() {
   localStorage.removeItem('access_token')
-  return home()
+  signOut()
+  home()
 }
 
 function fetchTodos() {
@@ -158,7 +160,7 @@ function fetchTodos() {
           <td>${el.status}</td>
           <td>${el.Due_date}</td>
           <td>${el.advice}</td>
-          <td><button id="editTodo${el.id}" value="${el.id}">Edit</button><button id="deleteTodo${el.id}" value="${el.id}">Delete</button></td>
+          <td><button id="editTodo" value="${el.id}">Edit</button> <button id="deleteTodo" value="${el.id}">Delete</button></td>
         </tr>
         `)
       })
@@ -226,6 +228,8 @@ function editTodos() {
 }
 
 function deleteTodo() {
+  console.log('ngapain?');
+
   const PATH = 'http://localhost:3000'
   $.ajax({
     method: 'DELETE',
@@ -245,6 +249,38 @@ function deleteTodo() {
     })
 }
 
+
+  function onSignIn(googleUser) {
+    var id_token = googleUser.getAuthResponse().id_token;
+    $.ajax({
+      method: 'POST',
+      url: 'http://localhost:3000/users/googleLogin',
+      headers: {
+        'google_token': id_token
+      }
+    })
+    .done(response=>{
+      localStorage.setItem('access_token', response.access_token)
+      showTodo()
+    })
+    .fail(xhr=>{
+      console.log('eror bang');
+      console.log(xhr);
+    })
+  }
+
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+  });
+}
+
+
+
+
+
+
 $(document).ready(function () {
   if (localStorage.getItem('access_token')) {
     showTodo()
@@ -253,8 +289,8 @@ $(document).ready(function () {
     $('#logoutNav').on('click', logout)
 
     $('#addTodoButton').on('click', showAddTodo)
-    $('#deleteTodo').on('click', showAddTodo)
-    $('#editTodo').on('click', showAddTodo)
+    $('tr#deleteTodo').on('click', deleteTodo)
+    $('tr#editTodo').on('click', editTodos)
     
     $('#cancelAddTodoButton').on('click', showTodo)
     $('#addTodoForm').on('submit', addTodos)
@@ -271,6 +307,7 @@ $(document).ready(function () {
 
     $('#loginForm').on('submit', login)
     $('#registerForm').on('submit', register)
+    // $('#logoutNav').on('click', logout)
   }
 
 });
