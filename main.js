@@ -1,16 +1,21 @@
+const PATH = 'http://localhost:3000'
 
 function home() {
   // if (localStorage.getItem('access_token')) {
   //   showTodo()
   // } else {
-    localStorage.removeItem('access_token')
-    $('#home').slideDown("slow", function () { })
-    $('#loginForm').hide()
-    $('#registerForm').hide()
-    $('#todosForm').hide()
-    $('#navShowTodo').hide()
-    $('#logoutNav').hide()
-    $('#addTodoForm').hide()
+  localStorage.removeItem('access_token')
+  $('#home').slideDown("slow", function () { })
+  $('#registerNav').show()
+  $('#loginNav').show()
+
+  $('#loginForm').hide()
+  $('#registerForm').hide()
+  $('#todosForm').hide()
+  $('#navShowTodo').hide()
+  $('#logoutNav').hide()
+
+  $('#addTodoForm').hide()
   // }
 }
 
@@ -23,6 +28,7 @@ function showLogin() {
   $('#navShowTodo').hide()
   $('#addTodoForm').hide()
 
+  // $('#logoutNav').show() //TESTING!!!!!
 }
 
 function showRegister() {
@@ -38,7 +44,6 @@ function showRegister() {
 
 function showTodo(event) {
   // event.preventDefault();
-
   $('#home').hide()
   $('#loginForm').hide()
   $('#loginNav').hide()
@@ -48,9 +53,13 @@ function showTodo(event) {
   $('#addTodoForm').hide()
   $('#logoutNav').show()
   $('#todosForm').slideDown("slow", function () { })
+
+  $("#todoList").empty()
+  fetchTodos()
+  clearForm()
 }
 
-function showAddTodo() {
+function showAddTodo(type) {
   // localStorage.getItem('access_token')
   $('#home').hide()
   $('#loginForm').hide()
@@ -61,18 +70,19 @@ function showAddTodo() {
   $('#addTodoForm').slideDown("slow", function () { })
   $('#logoutNav').show()
   $('#todosForm').hide()
+  if (type === 'edit') {
+    $("#headerTodoForm").text('Edit Todo')
+  } else {
+    $("#headerTodoForm").text('Add Todo')
+  }
 }
 
-function showEditTodo() {
-  $('#home').hide()
-  $('#loginForm').hide()
-  $('#loginNav').hide()
-  $('#registerForm').hide()
-  $('#registerNav').hide()
-  $('#navShowTodo').hide()
-  $('#addTodoForm').slideDown("slow", function () { })
-  $('#logoutNav').show()
-  $('#todosForm').hide()
+function clearForm() {
+  $('#titleAddTodo').val('')
+  $('#descriptionAddTodo').val('')
+  $('#statusAddTodo').val('')
+  $('#duedateAddTodo').val('')
+  $("#addTodoForm").removeAttr("idTodo")
 }
 
 function login(event) {
@@ -90,7 +100,8 @@ function login(event) {
     }
   })
     .done(response => {
-      console.log(response);
+      // fetchTodos()
+      console.log(response, 'dari login mas');
       localStorage.setItem('access_token', response.access_token)
       showTodo()
     })
@@ -123,9 +134,9 @@ function register(event) {
     })
     .fail(xhr => {
       console.log(xhr);
-      $('#nameRegister').val('')
-      $('#emailRegister').val('')
-      $('#passwordRegister').val('')
+      // $('#nameRegister').val('')
+      // $('#emailRegister').val('')
+      // $('#passwordRegister').val('')
     })
     .always(_ => {
       // console.log('LOGIN function triggered');
@@ -142,6 +153,7 @@ function logout() {
 }
 
 function fetchTodos() {
+  $("#todoList").empty()
   const PATH = 'http://localhost:3000'
   $.ajax({
     method: 'GET',
@@ -159,8 +171,7 @@ function fetchTodos() {
           <td>${el.description}</td>
           <td>${el.status}</td>
           <td>${el.Due_date}</td>
-          <td>${el.advice}</td>
-          <td><button id="editTodo" value="${el.id}">Edit</button> <button id="deleteTodo" value="${el.id}">Delete</button></td>
+          <td><button onclick="getTodoById(${el.id})">Edit</button>  <button onclick="deleteTodo(${el.id})">Delete</button></td>
         </tr>
         `)
       })
@@ -173,8 +184,10 @@ function fetchTodos() {
     })
 }
 
-function addTodos(event) {
-  event.preventDefault();
+/* <td>${el.advice}</td> */
+
+function addTodos() {
+  // event.preventDefault();
 
   const title = $('#titleAddTodo').val()
   const description = $('#descriptionAddTodo').val()
@@ -194,10 +207,6 @@ function addTodos(event) {
     })
     .fail(xhr => {
       console.log(xhr);
-      $('#titleAddTodo').val('')
-      $('#descriptionAddTodo').val('')
-      $('#statusAddTodo').val('')
-      $('#duedateAddTodo').val('')
     })
     .always(_ => {
       $('#titleAddTodo').val('')
@@ -207,17 +216,51 @@ function addTodos(event) {
     })
 }
 
-function editTodos() {
-  const PATH = 'http://localhost:3000'
+function getTodoById(idTodo) {
   $.ajax({
-    method: 'PUT',
-    url: `${PATH}/todos/:id`,
+    method: 'GET',
+    url: `${PATH}/todos/${idTodo}`,
     headers: {
       access_token: localStorage.getItem('access_token')
     }
   })
     .done(response => {
+      // console.log(response);
+      showAddTodo('edit')
+      $("#addTodoForm").attr("idTodo", response.id)
+      $('#titleAddTodo').val(response.title)
+      $('#descriptionAddTodo').val(response.description)
+      $('#statusAddTodo').val(response.status)
+      $('#duedateAddTodo').val(response.Due_date)
+    })
+    .fail(xhr => {
+      console.log(xhr);
+    })
+    .always(_ => {
+      console.log("GET TODO BY ID");
+    })
+}
 
+function editTodos() {
+
+  const title = $('#titleAddTodo').val()
+  const description = $('#descriptionAddTodo').val()
+  const status = $('#statusAddTodo').val()
+  const Due_date = $('#duedateAddTodo').val()
+  const idTodo = $("#addTodoForm").attr("idTodo")
+
+  console.log(idTodo);
+  $.ajax({
+    method: 'PUT',
+    url: `${PATH}/todos/${idTodo}`,
+    data: { title, description, status, Due_date },
+    headers: {
+      access_token: localStorage.getItem('access_token')
+    }
+  })
+    .done(response => {
+      console.log('EDITED TODO');
+      showTodo()
     })
     .fail(xhr => {
       console.log(xhr);
@@ -227,13 +270,12 @@ function editTodos() {
     })
 }
 
-function deleteTodo() {
-  console.log('ngapain?');
+function deleteTodo(idTodo) {
+  // console.log(idTodo, 'ini idTodo');
 
-  const PATH = 'http://localhost:3000'
   $.ajax({
     method: 'DELETE',
-    url: `${PATH}/todos/:id`,
+    url: `${PATH}/todos/${idTodo}`,
     headers: {
       access_token: localStorage.getItem('access_token')
     }
@@ -245,29 +287,29 @@ function deleteTodo() {
       console.log(xhr);
     })
     .always(response => {
-      console.log('TODO DELETE');
+      console.log('TODO DELETED');
     })
 }
 
 
-  function onSignIn(googleUser) {
-    var id_token = googleUser.getAuthResponse().id_token;
-    $.ajax({
-      method: 'POST',
-      url: 'http://localhost:3000/users/googleLogin',
-      headers: {
-        'google_token': id_token
-      }
-    })
-    .done(response=>{
+function onSignIn(googleUser) {
+  var id_token = googleUser.getAuthResponse().id_token;
+  $.ajax({
+    method: 'POST',
+    url: 'http://localhost:3000/users/googleLogin',
+    headers: {
+      'google_token': id_token
+    }
+  })
+    .done(response => {
       localStorage.setItem('access_token', response.access_token)
       showTodo()
     })
-    .fail(xhr=>{
+    .fail(xhr => {
       console.log('eror bang');
       console.log(xhr);
     })
-  }
+}
 
 function signOut() {
   var auth2 = gapi.auth2.getAuthInstance();
@@ -278,36 +320,39 @@ function signOut() {
 
 
 
-
-
+//!!!!!! DOCUMENT READY
 
 $(document).ready(function () {
   if (localStorage.getItem('access_token')) {
     showTodo()
-    fetchTodos()
-    
-    $('#logoutNav').on('click', logout)
-
-    $('#addTodoButton').on('click', showAddTodo)
-    $('tr#deleteTodo').on('click', deleteTodo)
-    $('tr#editTodo').on('click', editTodos)
-    
-    $('#cancelAddTodoButton').on('click', showTodo)
-    $('#addTodoForm').on('submit', addTodos)
-
   } else {
     localStorage.removeItem('access_token')
     home()
-
-    $('#navHome').on('click', home)
-    $('#loginLink').on('click', showLogin)
-    $('#registerLink').on('click', showRegister)
-    $('#navLogin').on('click', showLogin)
-    $('#navRegister').on('click', showRegister)
-
-    $('#loginForm').on('submit', login)
-    $('#registerForm').on('submit', register)
-    // $('#logoutNav').on('click', logout)
   }
+
+  $('#logoutNav').on('click', logout)
+
+  $('#addTodoButton').on('click', showAddTodo)
+  $('#cancelAddTodoButton').on('click', showTodo)
+
+  $('#addTodoForm').on('submit', function (event) {
+    event.preventDefault()
+    if ($("#headerTodoForm").text() === "Add Todo") {
+      addTodos()
+    } else {
+      editTodos()
+    }
+    console.log($("#headerTodoForm").text())
+  })
+
+  $('#loginLink').on('click', showLogin)
+  $('#registerLink').on('click', showRegister)
+  $('#navHome').on('click', home)
+  $('#navRegister').on('click', showRegister)
+  $('#navLogin').on('click', showLogin)
+
+  $('#loginForm').on('submit', login)
+  $('#registerForm').on('submit', register)
+  // $('#logoutNav').on('click', logout)
 
 });
