@@ -40,6 +40,7 @@ function showHome() {
   $('#loading').hide()
   $('#todo-update').hide()
   $('#todo-add').hide()
+  $("body").css("background-image", "url('https://images.unsplash.com/photo-1485841890310-6a055c88698a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')")
 }
 function showTodos() {
   $('#todos').show()
@@ -51,6 +52,7 @@ function showTodos() {
   $('#todo-update').hide()
   $('#todo-add').hide()
   fetchDataTodos()
+  $("body").css("background-image", "url('https://images.unsplash.com/photo-1517946264308-1a7ea8abb6e0?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=667&q=80')")
 }
 function showTodoAdd() {
   $('#todo-add').show()
@@ -61,6 +63,7 @@ function showTodoAdd() {
   $('#login').hide()
   $('#loading').hide()
   $('#todo-update').hide()
+  $("body").css("background-image", "none")
 }
 function showTodoUpdate(id) {
   $.ajax({
@@ -77,7 +80,8 @@ function showTodoUpdate(id) {
       $('#update-todo-id').val(response.id)
       $('#update-todo-title').val(response.title)
       $('#update-todo-description').val(response.description)
-      $('#update-todo-date').val(response.due_date)
+      const inputan_due_date = new Date(response.due_date)
+      $('#update-todo-date').val(`${inputan_due_date.getFullYear()}-${inputan_due_date.getMonth() + 1}-${inputan_due_date.getDate()}`)
       $('#update-todo-status').val(response.status)
     })
     .fail((xhr, status, error) => {
@@ -94,11 +98,8 @@ function showTodoUpdate(id) {
       $('#register').hide()
       $('#login').hide()
       $('#loading').hide()
+      $("body").css("background-image", "none")
     })
-
-
-
-  
 }
 function showResto() {
   $('#resto').show()
@@ -109,6 +110,8 @@ function showResto() {
   $('#loading').hide()
   $('#todo-update').hide()
   $('#todo-add').hide()
+  $("body").css("background-image", "none")
+  fetchDataResto(74)
 }
 function showLogin() {
   $('#login').show()
@@ -120,6 +123,8 @@ function showLogin() {
   $('#todo-update').hide()
   $('#todo-add').hide()
   $('#navbar').hide()
+  $("body").css("background-image", "url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')")
+
 }
 function showRegister() {
   $('#register').show()
@@ -131,6 +136,7 @@ function showRegister() {
   $('#todo-update').hide()
   $('#todo-add').hide()
   $('#navbar').hide()
+  $("body").css("background-image", "url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')")
 }
 function fetchDataTodos() {
   $('#list-todo').empty()
@@ -144,29 +150,45 @@ function fetchDataTodos() {
     .done((response) => {
       console.log('done')
       console.log(response)
+      console.log(response.length)
+      if (response.length == 0) {
+        $('#table-todo').hide()
+        $('#notifkosong').empty()
+        $('#notifkosong').append(`Create Your First Todo!`)
+      } else {
+        $('#table-todo').show()
+        $('#notifkosong').empty()
+      }
       response.forEach(todo => {
-        if (todo.status === 'none') {
+        let now = new Date()
+        let due_date = new Date(todo.due_date)
+        console.log(due_date.getTime(), due_date)
+        let jarak = due_date.getTime() - now.getTime()
+        // let hasil = jarak
+        let hasil = Math.floor(jarak/86400000)
+        if (hasil < 0) {
           $('#list-todo').append(`
           <tr id="update-${todo.id}" style="cursor:pointer;">
-            <td><i style="color: yellow;" class="material-icons left">do_not_disturb_on</i></td>
+            <td><i style="color: red;" class="material-icons left">assignment_late</i></td>
             <td>${todo.title}</td>
-            <td>${todo.due_date}</td>
+            <td>Sudah Expire</td>
           </tr>
           `)
+          
         } else if (todo.status === 'done') {
           $('#list-todo').append(`
           <tr id="update-${todo.id}" style="cursor:pointer;">
             <td><i style="color: green;" class="material-icons left">beenhere</i></td>
             <td>${todo.title}</td>
-            <td>${todo.due_date}</td>
+            <td>Sudah Selesai</td>
           </tr>
           `)
         } else {
           $('#list-todo').append(`
           <tr id="update-${todo.id}" style="cursor:pointer;">
-            <td><i style="color: red;" class="material-icons left">assignment_late</i></td>
+            <td><i style="color: rgb(255, 206, 71);" class="material-icons left">do_not_disturb_on</i></td>
             <td>${todo.title}</td>
-            <td>${todo.due_date}</td>
+            <td>${hasil} Hari lagi</td>
           </tr>
           `)
         }
@@ -188,10 +210,6 @@ function fetchDataTodos() {
       console.log(response)
     })
 }
-{/* <li class="collection-item" style="text-align:left; cursor:pointer;">
-
-  <div id="update-${todo.id}"><i style="color: yellow;" class="material-icons left">do_not_disturb_on</i>${todo.title}<a class="secondary-content">${todo.due_date}</a></div>
-</li> */}
 function fetchDataResto(entity_id) {
   $('#list-resto').empty()
   console.log('kota:' , entity_id)
@@ -255,9 +273,11 @@ $(document).ready(function () {
 
   if (!localStorage.getItem('access_token')) {
     showLogin()
+    $("body").css("background-image", "url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')")
   } else {
     $('#navbar').show()
     showHome()
+    $("body").css("background-image", "url('https://images.unsplash.com/photo-1550895030-823330fc2551?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80')")
   }
 
   $('#login-form').on('submit', function (event) {
@@ -342,7 +362,10 @@ $(document).ready(function () {
     $('#loading').show()
     const title = $('#todo-title').val()
     const description = $('#todo-description').val()
-    const due_date = $('#todo-date').val() + 1
+    const inputan_due_date = new Date($('#todo-date').val())
+    console.log(inputan_due_date)
+    const due_date = `${inputan_due_date.getFullYear()}-${inputan_due_date.getMonth()+1}-${inputan_due_date.getDate()}`
+
     const status = $('#todo-status').val()
 
     console.log(title, description, due_date, status)
@@ -386,7 +409,9 @@ $(document).ready(function () {
     const id = $('#update-todo-id').val()
     const title = $('#update-todo-title').val()
     const description = $('#update-todo-description').val()
-    const due_date = $('#update-todo-date').val()
+    const inputan_due_date = new Date($('#update-todo-date').val())
+    console.log(inputan_due_date)
+    const due_date = `${inputan_due_date.getFullYear()}-${inputan_due_date.getMonth() + 1}-${inputan_due_date.getDate()}`
     const status = $('#update-todo-status').val()
     // console.log(title, description, due_date)
     $.ajax({
@@ -428,6 +453,11 @@ $(document).ready(function () {
   $('#btnGoToLoginPage').click(function (event) {
     event.preventDefault()
     showLogin()
+  })
+
+  $('#btnGoToHomePage').click(function (event) {
+    event.preventDefault()
+    showHome()
   })
 
   $('#btnGoToTodosPage').click(function (event) {

@@ -24,7 +24,7 @@
   <div id="navbar">
     <nav>
       <div class="nav-wrapper container">
-        <a href="#" class="brand-logo"><i class="material-icons">assignment_turned_in</i>Fancy Todos</a>
+        <a href="" id="btnGoToHomePage" class="brand-logo"><i class="material-icons">assignment_turned_in</i>Fancy Todos</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li><a id="btnGoToTodosPage">Todos</a></li>
           <li><a id="btnGoToRestoPage">Restaurant</a></li>
@@ -54,12 +54,14 @@
   <div id="login">
     <div class="container">
       <div class="row">
-        <form id="login-form" class="col s6" style="padding-top: 30px;">
+        <form id="login-form" class="col s6">
           <div class="header center-align">
             <h5>Login</h5>
             <p style="color:#333;">Welcome back to fancy todos</p>
+            <div class="google" style="display: flex; align-content: center; justify-content: center;">
+              <div style="align:center;" class="g-signin2" data-onsuccess="onSignIn"></div>
 
-            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+            </div>
           </div>
 
           <div class="row">
@@ -81,9 +83,9 @@
           <p class="center-align" style="color:#333; margin-bottom: 0px;">Don't have an account?  <a id="btnGoToRegisterPage" style="cursor: pointer;">Sign up for free</a> </p>
         </form>
         <div class="col s2"></div>
-        <div class="bglandingpage col s4" style="padding-top: 60px;">
+        <!-- <div class="bglandingpage col s4" style="padding-top: 60px;">
           <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_RItkEz.json" background="transparent" speed="1" style="width: 400px; height: 400px;" loop  autoplay></lottie-player>
-        </div>
+        </div> -->
 
       </div>
     </div>
@@ -92,7 +94,7 @@
   <div id="register">
     <div class="container">
       <div class="row">
-        <form id="register-form" class="col s6" style="padding-top: 60px;">
+        <form id="register-form" class="col s6">
           <div class="header center-align">
             <img src="https://img.icons8.com/fluent/48/000000/walter-white.png" />
             <h5>Let's get started</h5>
@@ -109,6 +111,7 @@
             <div class="input-field col s12">
               <input id="password-register" type="password" class="validate">
               <label for="password-register">Password</label>
+              <span class="helper-text" data-error="wrong" data-success="right">Password length more than 5 and less than 16</span>
             </div>
           </div>
           <button type="submit" class="mybtn">Register</button>
@@ -117,10 +120,10 @@
           <p class="center-align" style="color:#333; ">Already have an account? <a id="btnGoToLoginPage" style="cursor: pointer;">Log In</a> </p>
         </form>
         <div class="col s2"></div>
-        <div class="bglandingpage col s4" style="padding-top: 60px;">
+        <!-- <div class="bglandingpage col s4" style="padding-top: 60px;">
           <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_RItkEz.json" background="transparent"
             speed="1" style="width: 400px; height: 400px;" loop autoplay></lottie-player>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -152,19 +155,23 @@
   <div id="todos">
     <div class="container center-align">
       <h5>Your todo list</h5>
+      <p id="notifkosong"></p>
       <a id="btnGoToAddTodo" class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add todo</a>
-      <table style="margin: 20px;">
-        <thead>
-          <tr>
-            <th>Status</th>
-            <th>Title</th>
-            <th>Due date</th>
-          </tr>
-        </thead>
-        <tbody id="list-todo">
-        </tbody>
-      </table>
-      <div class="row">
+      <div id="table-todo" class="table-todo">
+        <table style="margin: 20px;">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Title</th>
+              <th>Dateline</th>
+            </tr>
+          </thead>
+          <tbody id="list-todo">
+          </tbody>
+        </table>
+
+      </div>
+      <!-- <div class="row">
         <div class="col">
           <a href=""><i style="color: yellow;" class="material-icons left">do_not_disturb_on</i>None</a>
         </div>
@@ -174,7 +181,7 @@
         <div class="col">
           <a href=""><i style="color: red;" class="material-icons left">assignment_late</i>Expire</a>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 
@@ -241,6 +248,14 @@
               </div>
             </div>
             <div class="row">
+              <!-- <div class="input-field col s12">
+                <select id="update-todo-status">
+                  <option value="" disabled selected>Choose your option</option>
+                  <option value="none">None</option>
+                  <option value="done">Done</option>
+                </select>
+                <label>Materialize Select</label>
+              </div> -->
               <div class="input-field col s12">
                 <input value="None" id="update-todo-status" type="text">
                 <label for="update-todo-status">Status</label>
@@ -251,9 +266,11 @@
               <div class="input-field col s12">
                 <input value="None" id="update-todo-date" type="text" class="datepicker">
                 <label for="update-todo-date">Due date</label>
-            
               </div>
+
+              
             </div>
+
             <button type="submit" class="mybtn">Update Todo</button>
           </form>
           <br>
@@ -276,17 +293,3 @@
 </body>
 
 </html>
-
-
-<!-- <li class="collection-item">
-  <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">assignment_turned_in</i></a></div>
-</li>
-<li class="collection-item">
-  <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">assignment_turned_in</i></a></div>
-</li>
-<li class="collection-item">
-  <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">assignment_turned_in</i></a></div>
-</li>
-<li class="collection-item">
-  <div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">assignment_turned_in</i></a></div>
-</li> -->
