@@ -14,6 +14,7 @@ function home() {
   $('#todosForm').hide()
   $('#navShowTodo').hide()
   $('#logoutNav').hide()
+  $('#infosTable').hide()
 
   $('#addTodoForm').hide()
   // }
@@ -27,6 +28,7 @@ function showLogin() {
   $('#logoutNav').hide()
   $('#navShowTodo').hide()
   $('#addTodoForm').hide()
+  $('#infosTable').hide()
 
   // $('#logoutNav').show() //TESTING!!!!!
 }
@@ -39,6 +41,7 @@ function showRegister() {
   $('#logoutNav').hide()
   $('#navShowTodo').hide()
   $('#addTodoForm').hide()
+  $('#infosTable').hide()
 
 }
 
@@ -51,25 +54,35 @@ function showTodo(event) {
   $('#registerNav').hide()
   $('#navShowTodo').hide()
   $('#addTodoForm').hide()
+
   $('#logoutNav').show()
+  $('#infosTable').slideDown("slow", function () { })
   $('#todosForm').slideDown("slow", function () { })
 
   $("#todoList").empty()
+
+  fetchNews()
   fetchTodos()
+  fetchAdvice()
+  fetchTime()
+  time()
   clearForm()
 }
 
 function showAddTodo(type) {
-  // localStorage.getItem('access_token')
+  $('#logoutNav').show()
+  $('#addTodoForm').slideDown("slow", function () { })
+
   $('#home').hide()
   $('#loginForm').hide()
   $('#loginNav').hide()
   $('#registerForm').hide()
   $('#registerNav').hide()
   $('#navShowTodo').hide()
-  $('#addTodoForm').slideDown("slow", function () { })
-  $('#logoutNav').show()
   $('#todosForm').hide()
+  $('#infosTable').hide()
+  $('#infosTable').hide()
+
   if (type === 'edit') {
     $("#headerTodoForm").text('Edit Todo')
   } else {
@@ -100,9 +113,9 @@ function login(event) {
     }
   })
     .done(response => {
-      // fetchTodos()
       console.log(response, 'dari login mas');
       localStorage.setItem('access_token', response.access_token)
+      $("#putUserName").text(`Welcome ${response.name} to your Todo`)
       showTodo()
     })
     .fail(xhr => {
@@ -134,12 +147,8 @@ function register(event) {
     })
     .fail(xhr => {
       console.log(xhr);
-      // $('#nameRegister').val('')
-      // $('#emailRegister').val('')
-      // $('#passwordRegister').val('')
     })
     .always(_ => {
-      // console.log('LOGIN function triggered');
       $('#nameRegister').val('')
       $('#emailRegister').val('')
       $('#passwordRegister').val('')
@@ -153,8 +162,17 @@ function logout() {
 }
 
 function fetchTodos() {
-  $("#todoList").empty()
-  const PATH = 'http://localhost:3000'
+  $('#todoList').append(`
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Due Date</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        `)
   $.ajax({
     method: 'GET',
     url: `${PATH}/todos`,
@@ -166,13 +184,17 @@ function fetchTodos() {
       response.forEach(el => {
         // console.log(el)
         $('#todoList').append(`
+        <tbody>
         <tr>
           <td>${el.title}</td>
           <td>${el.description}</td>
           <td>${el.status}</td>
           <td>${el.Due_date}</td>
-          <td><button onclick="getTodoById(${el.id})">Edit</button>  <button onclick="deleteTodo(${el.id})">Delete</button></td>
+          <td><input type="button" class="btn btn-secondary btn-sm" value="Edit" onclick="getTodoById(${el.id})">
+          <input type="button" class="btn btn-danger btn-sm" value="Delete" onclick="deleteTodo(${el.id})">
+          </td>
         </tr>
+        </tbody>
         `)
       })
     })
@@ -180,15 +202,94 @@ function fetchTodos() {
       console.log(xhr);
     })
     .always(response => {
-      console.log('TODO FETCH');
+      console.log('TODO FETCHED');
     })
 }
 
-/* <td>${el.advice}</td> */
+function fetchAdvice() {
+  $.ajax({
+    method: 'GET',
+    url: `${PATH}/advices`,
+    headers: {
+      access_token: localStorage.getItem('access_token')
+    }
+  })
+    .done(response => {
+      $('#adviceGen').text(response.advice)
+    })
+    .fail(xhr => {
+      console.log(xhr);
+    })
+    .always(response => {
+      console.log('ADVICE FETCHED');
+    })
+}
+
+function fetchNews(){
+  $.ajax({
+    method: 'GET',
+    url: `${PATH}/news`,
+    headers: {
+      access_token: localStorage.getItem('access_token')
+    }
+  })
+    .done(response => {
+      $("#newsToday").empty()
+      $('#newsToday').append(`
+        <p>${response.title}, <a href="${response.url}">more</a></p>
+        `)
+    })
+    .fail(xhr => {
+      console.log('eror disini bang');
+      console.log(xhr);
+    })
+    .always(response => {
+      console.log('NEWS FETCHED');
+    })
+}
+setInterval(fetchNews, 10000);
+
+
+function fetchTime() {
+  let day;
+  switch (new Date().getDay()) {
+    case 0:
+      day = "Sunday";
+      break;
+    case 1:
+      day = "Monday";
+      break;
+    case 2:
+      day = "Tuesday";
+      break;
+    case 3:
+      day = "Wednesday";
+      break;
+    case 4:
+      day = "Thursday";
+      break;
+    case 5:
+      day = "Friday";
+      break;
+    case 6:
+      day = "Saturday";
+  }
+  let date = new Date().toJSON().slice(0, 10).replace(/-/g, '/')
+  $('#todayTime').text(day + ', ' + date)
+}
+
+function time() {
+  let d = new Date();
+  let s = d.getSeconds();
+  let m = d.getMinutes();
+  let h = d.getHours();
+  let time = h + ":" + m + ":" + s;
+  $('#realtime').text(time)
+}
+setInterval(time, 1000);
+
 
 function addTodos() {
-  // event.preventDefault();
-
   const title = $('#titleAddTodo').val()
   const description = $('#descriptionAddTodo').val()
   const status = $('#statusAddTodo').val()
@@ -271,7 +372,6 @@ function editTodos() {
 }
 
 function deleteTodo(idTodo) {
-  // console.log(idTodo, 'ini idTodo');
 
   $.ajax({
     method: 'DELETE',
@@ -303,6 +403,7 @@ function onSignIn(googleUser) {
   })
     .done(response => {
       localStorage.setItem('access_token', response.access_token)
+      $("#putUserName").text(`Welcome ${response.name} to your Todo`)
       showTodo()
     })
     .fail(xhr => {
