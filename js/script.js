@@ -1,4 +1,4 @@
-const SERVER_PATH = 'http://localhost:3000'
+const SERVER_PATH = 'https://fancytodoichlas.herokuapp.com'
 
 function onSignIn(googleUser) {
   const id_token = googleUser.getAuthResponse().id_token;
@@ -17,8 +17,15 @@ function onSignIn(googleUser) {
       $('#navbar').show()
       showHome()
     })
-    .fail(response => {
-      console.log('fail', response)
+    .fail((xhr, status, error) => {
+      console.log('fail')
+      console.log(xhr.responseJSON, status, error)
+      $('#error-login').empty()
+      $('#error-login').show()
+      $('#error-login').append(`
+      <p>${xhr.responseJSON.error}</p>
+      `)
+      signOut()
     })
     .always(response => {
       console.log('always', response)
@@ -40,7 +47,7 @@ function showHome() {
   $('#loading').hide()
   $('#todo-update').hide()
   $('#todo-add').hide()
-  $("body").css("background-image", "url('https://images.unsplash.com/photo-1485841890310-6a055c88698a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80')")
+  $("body").css("background-image", "url('https://images.unsplash.com/photo-1481487196290-c152efe083f5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=830&q=80')")
 }
 function showTodos() {
   $('#todos').show()
@@ -64,8 +71,12 @@ function showTodoAdd() {
   $('#loading').hide()
   $('#todo-update').hide()
   $("body").css("background-image", "none")
+  $('#error-add-todo').hide()
 }
 function showTodoUpdate(id) {
+
+  $('#error-update-todo').hide()
+
   $.ajax({
     method: 'GET',
     url: `${SERVER_PATH}/todos/${id}`,
@@ -86,7 +97,8 @@ function showTodoUpdate(id) {
     })
     .fail((xhr, status, error) => {
       console.log('fail')
-      console.log(xhr, status, error)
+      console.log(xhr.responseJSON, status, error)
+
     })
     .always((response) => {
       console.log('always')
@@ -124,6 +136,8 @@ function showLogin() {
   $('#todo-add').hide()
   $('#navbar').hide()
   $("body").css("background-image", "url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')")
+  $('#error-login').hide()
+
 
 }
 function showRegister() {
@@ -137,6 +151,8 @@ function showRegister() {
   $('#todo-add').hide()
   $('#navbar').hide()
   $("body").css("background-image", "url('https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80')")
+  $('#error-register').hide()
+
 }
 function fetchDataTodos() {
   $('#list-todo').empty()
@@ -166,9 +182,9 @@ function fetchDataTodos() {
         let jarak = due_date.getTime() - now.getTime()
         // let hasil = jarak
         let hasil = Math.floor(jarak/86400000)
-        if (hasil < 0) {
+        if (hasil < -1) {
           $('#list-todo').append(`
-          <tr id="update-${todo.id}" style="cursor:pointer;">
+          <tr class="hoverList" id="update-${todo.id}" style="cursor:pointer;">
             <td><i style="color: red;" class="material-icons left">assignment_late</i></td>
             <td>${todo.title}</td>
             <td>Sudah Expire</td>
@@ -177,18 +193,18 @@ function fetchDataTodos() {
           
         } else if (todo.status === 'done') {
           $('#list-todo').append(`
-          <tr id="update-${todo.id}" style="cursor:pointer;">
-            <td><i style="color: green;" class="material-icons left">beenhere</i></td>
+          <tr class="hoverList" id="update-${todo.id}" style="cursor:pointer;">
+            <td><i style="color: blue ;" class="material-icons left">beenhere</i></td>
             <td>${todo.title}</td>
             <td>Sudah Selesai</td>
           </tr>
           `)
         } else {
           $('#list-todo').append(`
-          <tr id="update-${todo.id}" style="cursor:pointer;">
-            <td><i style="color: rgb(255, 206, 71);" class="material-icons left">do_not_disturb_on</i></td>
+          <tr class="hoverList" id="update-${todo.id}" style="cursor:pointer;">
+            <td><i style="color: green;" class="material-icons left">do_not_disturb_on</i></td>
             <td>${todo.title}</td>
-            <td>${hasil} Hari lagi</td>
+            <td>${hasil+1} Hari lagi</td>
           </tr>
           `)
         }
@@ -223,7 +239,7 @@ function fetchDataResto(entity_id) {
       response.forEach(resto => {
         if (resto.restaurant.thumb) {
           $('#list-resto').append(`
-          <div class="col s6 m3">
+          <div class="col s6 m4">
             <div class="card">
               <div class="card-image">
                 <img src="${resto.restaurant.thumb}">
@@ -289,6 +305,8 @@ $(document).ready(function () {
 
     $('#email-login').val('')
     $('#password-login').val('')
+    $('#error-login').empty()
+
 
     // console.log(email, password)
 
@@ -309,7 +327,13 @@ $(document).ready(function () {
       })
       .fail((xhr, status, error) => {
         console.log('fail')
-        console.log(xhr,status,error)
+        console.log(xhr.responseJSON, status, error)
+        $('#error-login').show()
+
+        $('#error-login').append(`
+        <p>${xhr.responseJSON.error}</p>
+        `)
+
       })
       .always((response) => {
         console.log('always')
@@ -328,6 +352,8 @@ $(document).ready(function () {
 
     $('#email-register').val('')
     $('#password-register').val('')
+    $('#error-register').empty()
+
 
     // console.log(email, password)
 
@@ -346,7 +372,13 @@ $(document).ready(function () {
       })
       .fail((xhr, status, error) => {
         console.log('fail')
-        console.log(xhr,status,error)
+        console.log(xhr.responseJSON, status, error)
+        $('#error-register').show()
+
+        $('#error-register').append(`
+        <p>${xhr.responseJSON.error}</p>
+        `)
+
       })
       .always((response) => {
         console.log('always')
@@ -370,6 +402,12 @@ $(document).ready(function () {
 
     console.log(title, description, due_date, status)
 
+    $('#error-add-todo').empty()
+    $('#todo-title').val('')
+    $('#todo-description').val('')
+    $('#todo-date').val('')
+
+
     $.ajax({
       method: 'POST',
       url: `${SERVER_PATH}/todos/`,
@@ -390,15 +428,19 @@ $(document).ready(function () {
       })
       .fail((xhr, status, error) => {
         console.log('fail')
-        console.log(xhr, status, error)
+        console.log(xhr.responseJSON.error[0], status, error)
+        $('#error-add-todo').show()
+
+        $('#error-add-todo').append(`
+        <p>${xhr.responseJSON.error[0]}</p>
+        `)
+        // $('#todo-title').val(xhr.responseJSON.error[0])
       })
       .always((response) => {
         console.log('always')
         console.log(response)
         $('#loading').hide()
-        $('#todo-title').val('')
-        $('#todo-description').val('')
-        $('#todo-date').val('')
+        
       })
   })
 
@@ -414,6 +456,10 @@ $(document).ready(function () {
     const due_date = `${inputan_due_date.getFullYear()}-${inputan_due_date.getMonth() + 1}-${inputan_due_date.getDate()}`
     const status = $('#update-todo-status').val()
     // console.log(title, description, due_date)
+
+    $('#error-update-todo').empty()
+
+
     $.ajax({
       method: 'PUT',
       url: `${SERVER_PATH}/todos/${id}`,
@@ -437,6 +483,12 @@ $(document).ready(function () {
       .fail((xhr, status, error) => {
         console.log('fail')
         console.log(xhr, status, error)
+        $('#error-update-todo').show()
+
+        $('#error-update-todo').append(`
+        <p>${xhr.responseJSON.error[0]}</p>
+        `)
+
       }).always((response) => {
         console.log('always')
         console.log(response)
@@ -464,6 +516,12 @@ $(document).ready(function () {
     event.preventDefault()
     showTodos()
   })
+
+  $('#btnGoToYourTodo').click(function (event) {
+    event.preventDefault()
+    showTodos()
+  })
+  
 
   $('#btnGoToRestoPage').click(function (event) {
     event.preventDefault()

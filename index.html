@@ -35,6 +35,29 @@
     </nav>
   </div>
 
+  <div id="home" style="background-color: rgba(0, 0, 0, 0.568); color: white; height: 100%; padding-bottom: 60px;">
+    <div class="container" >
+      <div class="row">
+        <div class="col s6" >
+
+          <h4>Welcome To Fancy Todos!</h4>
+          <div>
+
+          </div>
+          <p  class="pDetailResto"><i class="material-icons">account_circle</i> Created By Ichlasul Amal</p>
+          <h5>Description</h5>
+          <p class="pDetailResto"><i class="material-icons">beenhere</i> Web ini memiliki fitur CRUD( Create, read, update & delete).</p>
+          <p class="pDetailResto"><i class="material-icons">beenhere</i> Bisa login menggunakan gmail tanpa perlu daftar via web register. </p>
+          <p class="pDetailResto"><i class="material-icons">beenhere</i> Bisa melihat restorant terdekat dan add ke todo kamu.</p>
+          <h5>Contact Developer</h5>
+          <p class="pDetailResto"><i class="material-icons">markunread</i> id.ichlasulamal@gmail.com</p>
+          <p class="pDetailResto"><i class="material-icons">public</i> https://github.com/ichlasulamalgit</p>
+          <a style="margin-top: 20px;" id="btnGoToYourTodo" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Go To Your Todo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="loading" style="margin-top: 20px; display: flex; justify-content: center;">
     <div class="preloader-wrapper active">
       <div class="spinner-layer spinner-red-only">
@@ -56,16 +79,28 @@
       <div class="row">
         <form id="login-form" class="col s6">
           <div class="header center-align">
+            <!-- <div id="error-login" class="row container" style="display: flex; align-content: center; justify-content: center;">
+              
+            </div> -->
+            
             <h5>Login</h5>
             <p style="color:#333;">Welcome back to fancy todos</p>
             <div class="google" style="display: flex; align-content: center; justify-content: center;">
-              <div style="align:center;" class="g-signin2" data-onsuccess="onSignIn"></div>
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
             </div>
           </div>
-
+          <div class="row">
+            
+          </div>
           <div class="row">
             <p class="center-align" style="margin-bottom: 0px;">OR</p>
+            <br>
+            <div id="error-login"
+              class="myError">
+              <!-- <p>Email or password anda salah!</p> -->
+            </div>
+            
             <div class="input-field col s12">
               <input id="email-login" type="email" class="validate">
               <label for="email-login">Email</label>
@@ -102,6 +137,10 @@
             
           </div>
           <div class="row">
+            <div id="error-register"
+              class="myError">
+              <!-- <p>Email not unique!</p> -->
+            </div>
             <div class="input-field col s12">
               <input id="email-register" type="email" class="validate">
               <label for="email-register">Email</label>
@@ -190,8 +229,11 @@
       <h5>You can create todo here!</h5>
       <div class="row">
         <div class="col s6">
-          <form id="form-add-todo">
+          <form id="form-add-todo" class="formTodo">
             <div class="row">
+              <div id="error-add-todo" class="myError">
+                <!-- <p>Eror nih!</p> -->
+              </div>
               <div class="input-field col s12">
                 <input id="todo-title" type="text" class="validate">
                 <label for="todo-title">Todo Title</label>
@@ -219,6 +261,10 @@
           <a id="btnCancel" type="submit" class="mybtn2">Cancel</a>
 
         </div>
+        <div class="col s6">
+          <lottie-player src="https://assets1.lottiefiles.com/private_files/lf30_9x27DY.json" background="transparent" speed="1"
+            style="width: 500px; height: 500px;" loop autoplay></lottie-player>
+        </div>
       </div>
     </div>
   </div>
@@ -228,7 +274,7 @@
       <h5>Detail todo</h5>
       <div class="row">
         <div class="col s6">
-          <form id="form-update-todo">
+          <form id="form-update-todo" class="formTodo" >
             <div class="row">
               <div class="col s12">
                 <input id="update-todo-id" type="text" hidden>
@@ -236,39 +282,26 @@
               </div>
             </div>
             <div class="row">
+              <div id="error-update-todo" class="myError">
+                <p>Eror nih!</p>
+              </div>
               <div class="input-field col s12">
                 <input value="None" id="update-todo-title" type="text" class="validate">
                 <label for="update-todo-title">Todo Title</label>
               </div>
-            </div>
-            <div class="row">
               <div class="input-field col s12">
                 <input value="None" id="update-todo-description" type="text" class="validate">
                 <label for="update-todo-description">Description</label>
               </div>
-            </div>
-            <div class="row">
-              <!-- <div class="input-field col s12">
-                <select id="update-todo-status">
-                  <option value="" disabled selected>Choose your option</option>
-                  <option value="none">None</option>
-                  <option value="done">Done</option>
-                </select>
-                <label>Materialize Select</label>
-              </div> -->
               <div class="input-field col s12">
                 <input value="None" id="update-todo-status" type="text">
                 <label for="update-todo-status">Status</label>
+                <span class="helper-text" data-error="wrong" data-success="right">You can set status to none or done</span>
               </div>
-            </div>
-            
-            <div class="row">
               <div class="input-field col s12">
                 <input value="None" id="update-todo-date" type="text" class="datepicker">
                 <label for="update-todo-date">Due date</label>
               </div>
-
-              
             </div>
 
             <button type="submit" class="mybtn">Update Todo</button>
@@ -276,6 +309,10 @@
           <br>
           <a id="btnDelete" type="submit" class="mybtn2">Delete</a>
 
+        </div>
+        <div class="col s6">
+          <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_CGyxzM.json" background="transparent" speed="1"
+            style="width: 500px; height: 500px;" loop autoplay></lottie-player>
         </div>
       </div>
     </div>
