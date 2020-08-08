@@ -1,6 +1,11 @@
 "use strict"
 
 function onSignIn(googleUser) {
+    $("#content-todo").empty()
+
+    $("#todo-add-title").val("")
+    $("#todo-add-description").val("")
+    $("#todo-add-due_date").val("")
     const id_token = googleUser.getAuthResponse().id_token;
     $.ajax({
         method:"POST",
@@ -47,33 +52,69 @@ function showRegister() {
     $("#register-password").val("")
 
 }
-function showTodo() {
-    $("#col-todo-title").empty()
-    $("#col-todo-description").empty()
-    $("#col-todo-duedate").empty()
-    $("#col-todo-option").empty()
 
-    $("#todo-add-title").val("")
-    $("#todo-add-description").val("")
-    $("#todo-add-due_date").val("")
- 
+function tickSpecific(id,status) {
+    $.ajax({
+        method:"PUT",
+        url:`http://localhost:3000/todos/${id}`,
+        data: {
+            status: status? false:true
+        },
+        headers: { "access_token": localStorage.getItem("access_token") }
+    })
+    .then(result=>{
+        showTodo()
+    })
+}
+function delSpecific(id) {
+    if (confirm('Are you sure you want to delete that todo? only ticked todo can be deleted.')) {
+        $.ajax({
+            method:"DELETE",
+            url:`http://localhost:3000/todos/${id}`,
+            headers: { "access_token": localStorage.getItem("access_token") }
+        })
+        .then(result=>{
+            showTodo()
+        })
+    }
+}
+
+function showTodo() {
     $.ajax({
         method: "GET",
         url: "http://localhost:3000/todos",
         headers: { "access_token": localStorage.getItem("access_token") }
     })
         .done(result => {
+            $("#content-todo").empty()
+
+            $("#todo-add-title").val("")
+            $("#todo-add-description").val("")
+            $("#todo-add-due_date").val("")
+ 
             if (!$("#todo-quote-text").text()) {
                 $("#todo-quote-text").text(`${result.quote.quoteText}`)
                 $("#todo-quote-author").text(`~${result.quote.quoteAuthor}`)
             }
             result.todos.forEach(dat => {
-                //THIS NEEDS MAJOR REVISION!
-                $("#col-todo-title").append(`${dat.title} <br>`)
-                $("#col-todo-description").append(`${dat.description} <br>`)
-                $("#col-todo-duedate").append(`${dat.due_date.split("T")[0]} <br>`)
-                $("#col-todo-option").append("option <br>")
+            $("#content-todo").append(`
+            <div class="row bg-white">
+                <div class="col-sm-2 px-2 border border-right-0">
+                ${dat.status?"<del>":""}${dat.title}${dat.status?"</del>":""}
+                </div>
+                <div class="col-sm-6 px-2 border border-right-0 border-left-0">
+                ${dat.status?"<del>":""}${dat.description}${dat.status?"</del>":""}
+                </div>
+                <div class="col-sm-2 px-2 border border-left-0">
+                ${dat.status?"<del>":""}${dat.due_date.split("T")[0]}${dat.status?"</del>":""}
+                </div>
+                <div class="col-sm-2 px-2 border text-center">
+                <a href="" class="options" onclick="tickSpecific(${dat.id},${dat.status})">Tick</a> | <a href="" class="options" onclick=";delSpecific(${dat.id})">Delete</a>
+                </div>
+            </div>
+            `)
             })
+            $(".options").on("click",event=>event.preventDefault())
         })
         .fail((xhr, status, error) => {
     
@@ -82,6 +123,8 @@ function showTodo() {
 
         })
 }
+
+
 function showHome() {
     $("#container-login").hide()
     $("#container-register").hide()
@@ -133,6 +176,11 @@ $(document).ready(() => {
 
     $("#submit-login").on("submit", (event) => {
         event.preventDefault()
+        $("#content-todo").empty()
+
+        $("#todo-add-title").val("")
+        $("#todo-add-description").val("")
+        $("#todo-add-due_date").val("")
         $.ajax({
             method: "POST",
             url: "http://localhost:3000/login",
@@ -183,7 +231,7 @@ $(document).ready(() => {
             headers: { "access_token": localStorage.getItem("access_token") }
         })
             .done(result => {showHome();showTodo()})
-            .fail((xhr, status, error) => { showHome();showTodo() })
+            .fail((xhr, status, error) => { })
             .always(result => {})
             
     })
