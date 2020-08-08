@@ -1,0 +1,33 @@
+.bg-light {
+    background-color: white !important;
+}
+
+thead {
+    background-color: aqua!important;
+}
+
+.btn-primary {
+    background-color: blue !important;
+    color: #3f3f44;
+    border: 0px;
+}
+
+.list-table {
+    position: relative;
+    margin: auto auto;
+    width: 80%;
+}
+
+.container {
+    position: relative;
+    margin: 0 auto;
+    width: 60%;
+}
+
+.form-group {
+    width: 60%;
+}
+
+#home-section {
+    background-color: white;
+}
