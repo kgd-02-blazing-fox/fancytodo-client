@@ -106,7 +106,7 @@ function login(event) {
 
   $.ajax({
     type: "POST",
-    url: "https://simple-fancytodo.herokuapp.com/todos/login",
+    url: "https://simple-fancytodo.herokuapp.com/users/login",
     data: {
       email,
       password
