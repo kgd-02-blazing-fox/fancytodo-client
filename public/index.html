@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="google-signin-client_id"
+    content="722681282902-1aamc1un744ck5nvldgursneo9utgr1s.apps.googleusercontent.com">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+    integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+
+  <title>FANCY TODO</title>
+</head>
+
+<body class="bg-light"">
+  <h1>FANCY TODO</h1>
+
+  <!-- NAVIGATION -->
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <a class="navbar-brand" href="#" id="navHome">FANCY TODO</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+      aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item" id="navShowTodo">
+          <a class="nav-link" href="#">Show Todo</a>
+        </li>
+        <li class="nav-item" id="registerNav">
+          <a class="nav-link" href="#" id="navRegister">Register</a>
+        </li>
+        <li class="nav-item" id="loginNav">
+          <a class="nav-link" href="#" id="navLogin">Login</a>
+        </li>
+        <li class="nav-item" id="logoutNav">
+          <a class="nav-link" href="#" id="navLogout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- MAIN BODY -->
+  <main role="main" class="container">
+    <!-- HOME -->
+    <div class="home" id="home">
+      <br>
+      <h1>Hello World!</h1>
+      <h2>Welcome to Fancy-TODO</h2>
+      <p class="lead">Please <a href="#" id="loginLink">login</a> or <a href="#" id="registerLink">register</a>.</p>
+    </div>
+
+    <!-- LOGIN -->
+    <br><br>
+    <div class="login" id="loginForm">
+      <form class="form-login">
+        <h1 class="h3 mb-3 font-weight-normal">Please login</h1>
+        <label for="email" class="sr-only">Email address</label>
+        <input type="email" id="emailLogin" class="form-control" placeholder="Email address" required>
+        <br>
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" id="passwordLogin" class="form-control" placeholder="Password" required>
+        <hr>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Login</button>
+      </form>
+      <hr>
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    </div>
+
+    <!-- REGISTER -->
+    <br>
+    <div class="form-group" id="registerForm">
+      <form class="form-register">
+        <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+        <label for="nameRegister" class="sr-only">Name</label>
+        <input type="text" id="nameRegister" class="form-control" placeholder="Your name" required>
+        <br>
+        <label for="emailRegister" class="sr-only">Email address</label>
+        <input type="email" id="emailRegister" class="form-control" placeholder="Email address" required>
+        <br>
+        <label for="passwordRegister" class="sr-only">Password</label>
+        <input type="password" id="passwordRegister" class="form-control" placeholder="Password" required>
+        <hr>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+      </form>
+    </div>
+
+    <!-- ADD INFOS -->
+    <div class="container-sm " id="infosTable">
+      <div class="row">
+        <div class="col-sm-3 border">
+          <blockquote id="adviceGen"><cite>ADVICES</cite></blockquote>
+          <footer class="blockquote-footer">a friendly advice from us</footer>
+        </div>
+
+        <div class="col-sm-6 small border">
+          <p><i><small>Some News Today</small></i></p>
+          <div id="newsToday"></div>
+        </div>
+
+        <div class="col-sm-3 text-center border">
+          <p id="todayTime">TIME</p>
+          <span id="realtime"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TODOS -->
+    <br>
+    <div class="container pt-3 border">
+      <div class="col-sm-17" id="todosForm">
+        <h2 id="putUserName">Welcome to your Fancy-TODO</h2>
+        <div class="pt-3">
+          <input type="button" class="btn btn-info" value="+ Add Todo" id="addTodoButton">
+        </div>
+        <br>
+        <div>
+          <table class="table table-hover" id="todoList">
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADD TODO -->
+    <div class="container pt-6" id="addTodoForm">
+      <form>
+        <h1 class="h1 mb-3 font-weight-normal" id="headerTodoForm">Add New Todo</h1>
+        <input type="button" class="btn btn-info" value="Cancel" id="cancelAddTodoButton"><br>
+        <div class="form-group">
+          <label for="titleAddTodo">Title :</label>
+          <input type="text" id="titleAddTodo" class="form-control" placeholder="What is you about todo?" required>
+        </div>
+        <div class="form-group">
+          <label for="descriptionAddTodo">Description :</label>
+          <input type="text" id="descriptionAddTodo" class="form-control" placeholder="Describe more about your todo"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="statusAddTodo">Status :</label>
+          <input type="text" id="statusAddTodo" class="form-control" placeholder="Status" required>
+        </div>
+        <div class="form-group">
+          <label for="duedateAddTodo">Due Date :</label>
+          <input type="date" id="duedateAddTodo" class="form-control" placeholder="Due Date" required>
+          <hr>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Save Todo</button>
+        
+      </form>
+      <!-- <button id="cancelAddTodoButton">Cancel</button> -->
+      <br>
+    </div>
+
+
+
+  </main><!-- /.container -->
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+    integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J"
+    crossorigin="anonymous"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <script src="main.js"></script>
+</body>
+
+</html>
