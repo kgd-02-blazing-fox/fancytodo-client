@@ -55,7 +55,7 @@ function showRegister() {
 
 function tickSpecific(id,status) {
     $.ajax({
-        method:"PUT",
+        method:"PATCH",
         url:`http://localhost:3000/todos/${id}`,
         data: {
             status: status? false:true
