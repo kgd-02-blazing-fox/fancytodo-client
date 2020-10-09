@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--Import materialize.css-->
+  <link type="text/css" rel="stylesheet" href="css/materialize.css" media="screen,projection" />
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <!--Let browser know website is optimized for mobile-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- GOOGLE OAUTH -->
+  <meta name="google-signin-client_id" content="688088739708-5qotk6s7vtdiehd58ilknr0mfb3q5b9n.apps.googleusercontent.com">
+
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <title>Fancy Todo</title>
+  <link rel="icon" href="https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80" type="">
+
+
+</head>
+
+<body>
+
+  <div id="navbar">
+    <nav>
+      <div class="nav-wrapper container">
+        <a href="" id="btnGoToHomePage" class="brand-logo"><i class="material-icons">assignment_turned_in</i>Fancy Todos</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a id="btnGoToTodosPage">Todos</a></li>
+          <li><a id="btnGoToRestoPage">Restaurant</a></li>
+          <li>|</li>
+          <li><a id="btnLogout">Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+  <div id="home" style="background-color: rgba(0, 0, 0, 0.568); color: white; height: 100%; padding-bottom: 60px;">
+    <div class="container" >
+      <div class="row">
+        <div class="col s6" >
+
+          <h4>Welcome To Fancy Todos!</h4>
+          <div>
+
+          </div>
+          <p  class="pDetailResto"><i class="material-icons">account_circle</i> Created By Ichlasul Amal</p>
+          <h5>Description</h5>
+          <p class="pDetailResto"><i class="material-icons">beenhere</i> Web ini memiliki fitur CRUD( Create, read, update & delete).</p>
+          <p class="pDetailResto"><i class="material-icons">beenhere</i> Bisa login menggunakan gmail tanpa perlu daftar via web register. </p>
+          <p class="pDetailResto"><i class="material-icons">beenhere</i> Bisa melihat restorant terdekat dan add ke todo kamu.</p>
+          <h5>Contact Developer</h5>
+          <p class="pDetailResto"><i class="material-icons">markunread</i> id.ichlasulamal@gmail.com</p>
+          <p class="pDetailResto"><i class="material-icons">public</i> https://github.com/ichlasulamalgit</p>
+          <a style="margin-top: 20px;" id="btnGoToYourTodo" class="waves-effect waves-light btn"><i class="material-icons left">cloud</i>Go To Your Todo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loading" style="margin-top: 20px; display: flex; justify-content: center;">
+    <div class="preloader-wrapper active">
+      <div class="spinner-layer spinner-red-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div>
+        <div class="gap-patch">
+          <div class="circle"></div>
+        </div>
+        <div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="login">
+    <div class="container">
+      <div class="row">
+        <form id="login-form" class="col s6">
+          <div class="header center-align">
+            <!-- <div id="error-login" class="row container" style="display: flex; align-content: center; justify-content: center;">
+              
+            </div> -->
+            
+            <h5>Login</h5>
+            <p style="color:#333;">Welcome back to fancy todos</p>
+            <div class="google" style="display: flex; align-content: center; justify-content: center;">
+              <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+            </div>
+          </div>
+          <div class="row">
+            
+          </div>
+          <div class="row">
+            <p class="center-align" style="margin-bottom: 0px;">OR</p>
+            <br>
+            <div id="error-login"
+              class="myError">
+              <!-- <p>Email or password anda salah!</p> -->
+            </div>
+            
+            <div class="input-field col s12">
+              <input id="email-login" type="email" class="validate">
+              <label for="email-login">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password-login" type="password" class="validate">
+              <label for="password-login">Password</label>
+            </div>
+          </div>
+          <button type="submit" class="mybtn">Login</button>
+          
+          <br><br>
+          <p class="center-align" style="color:#333; margin-bottom: 0px;">Don't have an account?  <a id="btnGoToRegisterPage" style="cursor: pointer;">Sign up for free</a> </p>
+        </form>
+        <div class="col s2"></div>
+        <!-- <div class="bglandingpage col s4" style="padding-top: 60px;">
+          <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_RItkEz.json" background="transparent" speed="1" style="width: 400px; height: 400px;" loop  autoplay></lottie-player>
+        </div> -->
+
+      </div>
+    </div>
+  </div>
+
+  <div id="register">
+    <div class="container">
+      <div class="row">
+        <form id="register-form" class="col s6">
+          <div class="header center-align">
+            <img src="https://img.icons8.com/fluent/48/000000/walter-white.png" />
+            <h5>Let's get started</h5>
+            <p style="color:#333;">Create your free account </p>
+            
+          </div>
+          <div class="row">
+            <div id="error-register"
+              class="myError">
+              <!-- <p>Email not unique!</p> -->
+            </div>
+            <div class="input-field col s12">
+              <input id="email-register" type="email" class="validate">
+              <label for="email-register">Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <input id="password-register" type="password" class="validate">
+              <label for="password-register">Password</label>
+              <span class="helper-text" data-error="wrong" data-success="right">Password length more than 5 and less than 16</span>
+            </div>
+          </div>
+          <button type="submit" class="mybtn">Register</button>
+  
+          <br><br>
+          <p class="center-align" style="color:#333; ">Already have an account? <a id="btnGoToLoginPage" style="cursor: pointer;">Log In</a> </p>
+        </form>
+        <div class="col s2"></div>
+        <!-- <div class="bglandingpage col s4" style="padding-top: 60px;">
+          <lottie-player src="https://assets2.lottiefiles.com/packages/lf20_RItkEz.json" background="transparent"
+            speed="1" style="width: 400px; height: 400px;" loop autoplay></lottie-player>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div id="resto">
+    <div class="container">
+      <div class="header center-align">
+        <div class="row">
+          <div class="col s7">
+            <h1 style="font-family: 'Kaushan Script', cursive;">Add to your todo!</h1>
+          </div>
+          <div class="col s5">
+            <p>Kunjungi Resto Disekitar Anda!</p>
+            <div class="row">
+              <a id="btnFetchRestoBandung" href="" class="waves-effect waves-light btn">Bandung</a>
+              <p style="display:inline-block; margin-left: 15px; margin-right: 15px;">OR</p>
+              <a id="btnFetchRestoJakarta" href="" class="waves-effect waves-light btn">Jakarta</a>
+            </div>
+          </div>
+        </div>
+        
+        
+      </div>
+      <div id="list-resto" class="row">
+      </div>
+    </div>
+  </div>
+
+  <div id="todos">
+    <div class="container center-align">
+      <h5>Your todo list</h5>
+      <p id="notifkosong"></p>
+      <a id="btnGoToAddTodo" class="waves-effect waves-light btn"><i class="material-icons left">add</i>Add todo</a>
+      <div id="table-todo" class="table-todo">
+        <table style="margin: 20px;">
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Title</th>
+              <th>Dateline</th>
+            </tr>
+          </thead>
+          <tbody id="list-todo">
+          </tbody>
+        </table>
+
+      </div>
+      <!-- <div class="row">
+        <div class="col">
+          <a href=""><i style="color: yellow;" class="material-icons left">do_not_disturb_on</i>None</a>
+        </div>
+        <div class="col">
+          <a href=""><i style="color: green;" class="material-icons left">beenhere</i>Done</a>
+        </div>
+        <div class="col">
+          <a href=""><i style="color: red;" class="material-icons left">assignment_late</i>Expire</a>
+        </div>
+      </div> -->
+    </div>
+  </div>
+
+  <div id="todo-add">
+    <div class="container">
+      <h5>You can create todo here!</h5>
+      <div class="row">
+        <div class="col s6">
+          <form id="form-add-todo" class="formTodo">
+            <div class="row">
+              <div id="error-add-todo" class="myError">
+                <!-- <p>Eror nih!</p> -->
+              </div>
+              <div class="input-field col s12">
+                <input id="todo-title" type="text" class="validate">
+                <label for="todo-title">Todo Title</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input id="todo-description" type="text" class="validate">
+                <label for="todo-description">Description</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input id="todo-date" type="text" class="datepicker">
+                <label for="todo-date">Due date</label>
+              </div>
+
+              <div class="input-field col s12">
+                <input disabled value="none" id="todo-status" type="text">
+                <label for="todo-status">Status</label>
+              </div>
+
+            </div>
+            <button type="submit" class="mybtn">Add Todo</button>
+          </form>
+          <br>
+          <a id="btnCancel" type="submit" class="mybtn2">Cancel</a>
+
+        </div>
+        <div class="col s6">
+          <lottie-player src="https://assets1.lottiefiles.com/private_files/lf30_9x27DY.json" background="transparent" speed="1"
+            style="width: 500px; height: 500px;" loop autoplay></lottie-player>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="todo-update">
+    <div class="container">
+      <h5>Detail todo</h5>
+      <div class="row">
+        <div class="col s6">
+          <form id="form-update-todo" class="formTodo" >
+            <div class="row">
+              <div class="col s12">
+                <input id="update-todo-id" type="text" hidden>
+
+              </div>
+            </div>
+            <div class="row">
+              <div id="error-update-todo" class="myError">
+                <p>Eror nih!</p>
+              </div>
+              <div class="input-field col s12">
+                <input value="None" id="update-todo-title" type="text" class="validate">
+                <label for="update-todo-title">Todo Title</label>
+              </div>
+              <div class="input-field col s12">
+                <input value="None" id="update-todo-description" type="text" class="validate">
+                <label for="update-todo-description">Description</label>
+              </div>
+              <div class="input-field col s12">
+                <input value="None" id="update-todo-status" type="text">
+                <label for="update-todo-status">Status</label>
+                <span class="helper-text" data-error="wrong" data-success="right">You can set status to none or done</span>
+              </div>
+              <div class="input-field col s12">
+                <input value="None" id="update-todo-date" type="text" class="datepicker">
+                <label for="update-todo-date">Due date</label>
+              </div>
+            </div>
+
+            <button type="submit" class="mybtn">Update Todo</button>
+          </form>
+          <br>
+          <a id="btnDelete" type="submit" class="mybtn2">Delete</a>
+
+        </div>
+        <div class="col s6">
+          <lottie-player src="https://assets6.lottiefiles.com/packages/lf20_CGyxzM.json" background="transparent" speed="1"
+            style="width: 500px; height: 500px;" loop autoplay></lottie-player>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--JavaScript at end of body for optimized loading-->
+  <!-- GOOGLE Oauth -->
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <!-- CDN -->
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="js/materialize.js"></script>
+  <script type="" src="./js/script.js"></script>
+
+</body>
+
+</html>

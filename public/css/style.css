@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Patrick+Hand&display=swap');
+
+a {
+  color: black;
+}
+
+button {
+  display: inline-block;
+  width: 100%;
+  border:0;
+}
+
+.mybtn {
+  background-color: blue;
+
+  color: white;
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  cursor: pointer;
+}
+
+.mybtn:hover {
+  background-color:rgb(0, 33, 219);
+
+}
+
+.mybtn2 {
+  border: 2px solid rgb(255, 255, 255); 
+
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  cursor: pointer;
+}
+
+.mybtn2:hover {
+  /* border: 2px solid rgb(255, 255, 255);   */
+  border: 2px solid rgb(173, 173, 173); 
+
+}
+
+.loginbtn {
+  border: 2px solid rgb(173, 173, 173); 
+  padding: 10px 20px; 
+  border-radius: 5px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+}
+
+.pDetailResto{
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 5px;
+
+}
+
+.pDetailResto i {
+  margin-right: 5px;
+}
+
+body, #home {
+    /* background-image: url("https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"); */
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+#login-form {
+  margin-top: 60px;
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+#register-form {
+  margin-top: 60px;
+  border: 2px solid black;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.table-todo{
+  background-color: rgba(255, 255, 255, 0.835);
+  border: 2px solid black;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 20px;
+  min-height: 350px;
+}
+
+.myError {
+  background-color: rgb(255, 179, 179); padding: 5px 20px; color: rgb(255, 0, 0); border-radius: 10px;
+}
+
+.formTodo {
+  border: 2px solid black; 
+  padding: 10px 20px; 
+  border-radius: 10px;
+}
+
+.hoverList:hover {
+  background-color: white;
+}
